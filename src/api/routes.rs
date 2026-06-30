@@ -17,7 +17,9 @@ pub fn configure(cfg: &mut web::ServiceConfig) {
             .service(handlers::songs::get_song)
             .service(handlers::songs::stream_song)
             .service(handlers::songs::like_song)
+            .service(handlers::projects::generate_song)
             .service(handlers::dashboard::dashboard_stats)
             .service(handlers::dashboard::dashboard_recent)
+            .service(handlers::generation::get_generation_status)
     );
 }

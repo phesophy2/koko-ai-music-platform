@@ -26,11 +26,11 @@ const features = [
 ];
 
 const artists = [
-  { id: 'aurora', name: 'AURORA', genres: ['Pop', 'Electronic'], vibe: ['ethereal', 'dreamy'], vocalType: 'Soprano' },
-  { id: 'noir', name: 'Noir', genres: ['R&B', 'HipHop'], vibe: ['smooth', 'dark'], vocalType: 'Tenor' },
-  { id: 'pulse', name: 'PULSE', genres: ['Electronic', 'Pop'], vibe: ['energetic', 'uplifting'], vocalType: 'Mezzo-Soprano' },
-  { id: 'ember', name: 'Ember', genres: ['Indie', 'Rock'], vibe: ['raw', 'passionate'], vocalType: 'Alto' },
-  { id: 'nova', name: 'Nova', genres: ['Pop', 'R&B'], vibe: ['warm', 'soulful'], vocalType: 'Contralto' },
+  { id: 'raya', name: 'RAYA', genres: ['Pop-R&B', 'Alternative R&B'], vibe: ['emotional', 'vulnerable', 'intimate'], vocalType: 'Soprano' },
+  { id: 'leo', name: 'LEO VANCE', genres: ['Country-Pop', 'Folk'], vibe: ['warm', 'storytelling', 'authentic'], vocalType: 'Baritone' },
+  { id: 'nova', name: 'NOVA', genres: ['Melodic Rap', 'Hip-Hop'], vibe: ['dark', 'introspective', 'raw'], vocalType: 'Tenor' },
+  { id: 'vega', name: 'VEGA', genres: ['EDM', 'House', 'Pop'], vibe: ['energetic', 'euphoric', 'uplifting'], vocalType: 'Mezzo-Soprano' },
+  { id: 'luna', name: 'LUNA', genres: ['Dark Pop', 'Art Pop'], vibe: ['haunting', 'ethereal', 'mysterious'], vocalType: 'Soprano' },
 ];
 
 export default component$(() => {

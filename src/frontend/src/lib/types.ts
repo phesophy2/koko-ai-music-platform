@@ -1,3 +1,69 @@
+export interface BackendArtist {
+  id: string;
+  name: string;
+  genre: string[];
+  vibe: string[];
+  vocal_type: string;
+  vocal_texture: string[];
+  vocal_technique: string[];
+  delivery_style: string[];
+  influences: string[];
+  brand: string;
+  target_audience: any;
+  story: string;
+}
+
+export interface BackendProject {
+  id: string;
+  artist_id: string;
+  hex_id: string;
+  structure: string;
+  topic: string;
+  duration: number;
+  status: string;
+  emotion: string;
+  intensity: number;
+  created_at: string;
+}
+
+export interface BackendSong {
+  id: string;
+  project_id: string;
+  artist_id: string;
+  title: string;
+  lyrics: string;
+  audio_url: string;
+  poster_url: string | null;
+  duration: number | null;
+  genre: string | null;
+  bpm: number | null;
+  musical_key: string | null;
+  quality_score: any | null;
+  hit_prediction: any | null;
+  plays: number;
+  likes: number;
+  shares: number;
+  generated_at: string;
+}
+
+export interface BackendDashboardStats {
+  total_projects: number;
+  total_songs: number;
+  total_plays: number;
+  total_likes: number;
+  average_quality: number;
+  credits_remaining: number;
+}
+
+export interface BackendQueueStatus {
+  queue_id: string;
+  project_id: string;
+  status: string;
+  progress: number;
+  stage: string;
+}
+
+// Frontend-friendly camelCase types (used by components)
 export interface VocalDNA {
   timbre: string;
   range: string;
@@ -20,11 +86,6 @@ export interface Artist {
   influences: string[];
   targetAudience: string[];
   imageUrl?: string;
-}
-
-export interface ArtistResponse {
-  artists: Artist[];
-  total: number;
 }
 
 export interface Project {
@@ -55,10 +116,7 @@ export interface QualityScores {
 export interface HitPrediction {
   score: number;
   category: string;
-  factors: {
-    name: string;
-    impact: number;
-  }[];
+  factors: { name: string; impact: number }[];
 }
 
 export interface Song {
@@ -88,8 +146,11 @@ export interface DashboardStats {
 }
 
 export interface CreateProjectRequest {
-  artistId: string;
+  artist_id: string;
+  hex_id: string;
+  structure: string;
+  topic: string;
+  duration: number;
   emotion: string;
   intensity: number;
-  topic: string;
 }

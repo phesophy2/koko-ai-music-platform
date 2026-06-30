@@ -20,7 +20,7 @@ pub async fn get_dashboard_stats(pool: &PgPool, user_id: Uuid) -> Result<Dashboa
     .bind(user_id)
     .fetch_one(pool)
     .await
-    .unwrap_or(0);
+    .unwrap_or_else(|_| 0);
 
     let user = sqlx::query_as::<_, crate::models::User>(
         "SELECT * FROM users WHERE id = $1"
@@ -43,7 +43,7 @@ pub async fn get_dashboard_stats(pool: &PgPool, user_id: Uuid) -> Result<Dashboa
     .bind(user_id)
     .fetch_one(pool)
     .await
-    .unwrap_or((0, 0, 0));
+    .unwrap_or_else(|_| (0, 0, 0));
 
     let avg_quality = sqlx::query_scalar::<_, Option<f64>>(
         r#"
@@ -67,6 +67,10 @@ pub async fn get_dashboard_stats(pool: &PgPool, user_id: Uuid) -> Result<Dashboa
         average_quality: (avg_quality * 100.0).round() / 100.0,
         credits_remaining: user.credits,
     })
+}
+
+pub async fn get_dashboard_recent(pool: &PgPool, user_id: Uuid) -> Result<Vec<Project>, sqlx::Error> {
+    get_recent_projects(pool, user_id, 10).await
 }
 
 pub async fn get_recent_projects(pool: &PgPool, user_id: Uuid, limit: i64) -> Result<Vec<Project>, sqlx::Error> {

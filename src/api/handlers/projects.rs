@@ -3,6 +3,8 @@ use uuid::Uuid;
 use crate::models::*;
 use crate::db::PgPool;
 use crate::api::handlers::extract_user_id;
+use crate::queue::{self, GenerationTask, publish_generation_task};
+use crate::config::Config;
 
 #[post("/projects")]
 pub async fn create_project(
@@ -267,4 +269,85 @@ pub async fn delete_project(
             "error": format!("Failed to delete project: {}", e)
         })),
     }
+}
+
+#[post("/projects/{id}/generate")]
+pub async fn generate_song(
+    pool: web::Data<PgPool>,
+    path: web::Path<Uuid>,
+    req: web::Json<GenerateSongRequest>,
+    req_http: HttpRequest,
+    nats: web::Data<async_nats::Client>,
+    config: web::Data<Config>,
+) -> impl Responder {
+    let user_id = match extract_user_id(&req_http) {
+        Ok(uid) => uid,
+        Err(resp) => return resp,
+    };
+
+    let project_id = path.into_inner();
+
+    let project = sqlx::query_as::<_, Project>(
+        "SELECT * FROM projects WHERE id = $1 AND user_id = $2"
+    )
+    .bind(project_id)
+    .bind(user_id)
+    .fetch_optional(pool.get_ref())
+    .await;
+
+    let project = match project {
+        Ok(Some(p)) => p,
+        Ok(None) => return HttpResponse::NotFound().json(serde_json::json!({
+            "error": "Project not found"
+        })),
+        Err(e) => return HttpResponse::InternalServerError().json(serde_json::json!({
+            "error": format!("Database error: {}", e)
+        })),
+    };
+
+    let queue_id = Uuid::new_v4();
+    let emotion = req.emotion.clone();
+    let topic = req.topic.clone().unwrap_or_else(|| project.topic.clone());
+
+    let _ = sqlx::query(
+        r#"INSERT INTO generation_queue (id, project_id, stage, status, progress, retry_count, max_retries, created_at)
+           VALUES ($1, $2, 'initializing', 'pending', 0, 0, 3, NOW())"#
+    )
+    .bind(queue_id)
+    .bind(project_id)
+    .execute(pool.get_ref())
+    .await;
+
+    let _ = sqlx::query(
+        "UPDATE projects SET status = 'generating', updated_at = NOW() WHERE id = $1"
+    )
+    .bind(project_id)
+    .execute(pool.get_ref())
+    .await;
+
+    let task = GenerationTask {
+        queue_id,
+        project_id,
+        artist_id: project.artist_id,
+        user_id,
+        emotion,
+        intensity: req.intensity,
+        topic,
+        structure: project.structure,
+        duration: project.duration,
+    };
+
+    if let Err(e) = publish_generation_task(nats.get_ref(), &task).await {
+        log::warn!("Failed to publish generation task to NATS: {}", e);
+    }
+
+    let estimated_cost = crate::services::cost_optimizer::estimate_cost(project.duration, req.intensity);
+
+    HttpResponse::Accepted().json(serde_json::json!({
+        "queue_id": queue_id,
+        "project_id": project_id,
+        "status": "pending",
+        "estimated_cost": estimated_cost.total,
+        "estimated_duration": 45
+    }))
 }

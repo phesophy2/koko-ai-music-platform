@@ -3,6 +3,7 @@ pub mod artists;
 pub mod projects;
 pub mod songs;
 pub mod dashboard;
+pub mod generation;
 
 use actix_web::{HttpRequest, HttpResponse, web};
 use uuid::Uuid;

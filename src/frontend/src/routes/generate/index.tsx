@@ -6,9 +6,9 @@ import { ProgressBar } from '../../components/ProgressBar';
 const emotions = ['Happy', 'Sad', 'Energetic', 'Melancholic', 'Angry'];
 
 function generateHexId(): string {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const chars = '0123456789ABCDEF';
   let result = '';
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < 6; i++) {
     result += chars.charAt(Math.floor(Math.random() * chars.length));
   }
   return result;
@@ -31,11 +31,11 @@ export default component$(() => {
       artists.value = await api.getArtists();
     } catch {
       artists.value = [
-        { id: 'aurora', name: 'AURORA', genres: ['Pop', 'Electronic'], vibe: ['ethereal', 'dreamy'], vocalType: 'Soprano', vocalDNA: { timbre: 'Bright', range: 'C4-C6', emotion: 'Ethereal', clarity: 92, power: 78, breathiness: 65, resonance: 85 }, brandStatement: '', story: '', influences: [], targetAudience: [] },
-        { id: 'noir', name: 'Noir', genres: ['R&B', 'HipHop'], vibe: ['smooth', 'dark'], vocalType: 'Tenor', vocalDNA: { timbre: 'Warm', range: 'A2-A4', emotion: 'Smooth', clarity: 88, power: 82, breathiness: 45, resonance: 90 }, brandStatement: '', story: '', influences: [], targetAudience: [] },
-        { id: 'pulse', name: 'PULSE', genres: ['Electronic', 'Pop'], vibe: ['energetic', 'uplifting'], vocalType: 'Mezzo-Soprano', vocalDNA: { timbre: 'Bright', range: 'G3-B5', emotion: 'Energetic', clarity: 95, power: 88, breathiness: 30, resonance: 82 }, brandStatement: '', story: '', influences: [], targetAudience: [] },
-        { id: 'ember', name: 'Ember', genres: ['Indie', 'Rock'], vibe: ['raw', 'passionate'], vocalType: 'Alto', vocalDNA: { timbre: 'Rich', range: 'G3-E5', emotion: 'Passionate', clarity: 85, power: 90, breathiness: 55, resonance: 88 }, brandStatement: '', story: '', influences: [], targetAudience: [] },
-        { id: 'nova', name: 'Nova', genres: ['Pop', 'R&B'], vibe: ['warm', 'soulful'], vocalType: 'Contralto', vocalDNA: { timbre: 'Smooth', range: 'F3-D5', emotion: 'Soulful', clarity: 90, power: 76, breathiness: 60, resonance: 92 }, brandStatement: '', story: '', influences: [], targetAudience: [] },
+        { id: 'raya', name: 'RAYA', genres: ['Pop-R&B', 'Alternative R&B'], vibe: ['emotional', 'vulnerable', 'intimate'], vocalType: 'Soprano', vocalDNA: { timbre: 'Crystalline', range: 'C4-C6', emotion: 'Emotional', clarity: 92, power: 78, breathiness: 65, resonance: 85 }, brandStatement: 'Emotional vulnerability meets sonic perfection.', story: '', influences: ['SZA', 'Ariana Grande', 'Jhené Aiko'], targetAudience: ['Pop fans', 'R&B lovers'] },
+        { id: 'leo', name: 'LEO VANCE', genres: ['Country-Pop', 'Folk'], vibe: ['warm', 'storytelling', 'authentic'], vocalType: 'Baritone', vocalDNA: { timbre: 'Warm', range: 'A2-A4', emotion: 'Storytelling', clarity: 88, power: 82, breathiness: 45, resonance: 90 }, brandStatement: 'Stories from the heartland.', story: '', influences: ['Tyler Childers', 'Zach Bryan', 'Chris Stapleton'], targetAudience: ['Country fans', 'Folk listeners'] },
+        { id: 'nova', name: 'NOVA', genres: ['Melodic Rap', 'Hip-Hop'], vibe: ['dark', 'introspective', 'raw'], vocalType: 'Tenor', vocalDNA: { timbre: 'Deep', range: 'A2-A4', emotion: 'Raw', clarity: 85, power: 90, breathiness: 55, resonance: 88 }, brandStatement: 'Dark melodies for the midnight thoughts.', story: '', influences: ['Juice WRLD', 'Lil Peep', 'Post Malone'], targetAudience: ['Hip-hop fans', 'Trap lovers'] },
+        { id: 'vega', name: 'VEGA', genres: ['EDM', 'House', 'Pop'], vibe: ['energetic', 'euphoric', 'uplifting'], vocalType: 'Mezzo-Soprano', vocalDNA: { timbre: 'Bright', range: 'G3-B5', emotion: 'Energetic', clarity: 95, power: 88, breathiness: 30, resonance: 82 }, brandStatement: 'Turn up the volume.', story: '', influences: ['Dua Lipa', 'Lady Gaga', 'Beyoncé'], targetAudience: ['EDM fans', 'Pop listeners'] },
+        { id: 'luna', name: 'LUNA', genres: ['Dark Pop', 'Art Pop'], vibe: ['haunting', 'ethereal', 'mysterious'], vocalType: 'Soprano', vocalDNA: { timbre: 'Ethereal', range: 'C4-C6', emotion: 'Haunting', clarity: 90, power: 76, breathiness: 60, resonance: 92 }, brandStatement: 'Whispers in the dark.', story: '', influences: ['Billie Eilish', 'Lana Del Rey', 'Mitski'], targetAudience: ['Art pop fans', 'Alternative listeners'] },
       ];
     } finally {
       loadingArtists.value = false;
@@ -52,10 +52,13 @@ export default component$(() => {
 
     try {
       const project = await api.createProject({
-        artistId: selectedArtist.value,
+        artist_id: selectedArtist.value,
+        hex_id: hexId.value,
+        structure: 'Verse-Chorus-Verse-Chorus-Bridge',
+        topic: topic.value || selectedEmotion.value,
+        duration: 180,
         emotion: selectedEmotion.value,
         intensity: intensity.value,
-        topic: topic.value,
       });
       createdProject.value = project;
       progress.value = 100;

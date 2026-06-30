@@ -59,7 +59,7 @@ VALUES
     ARRAY['Energetic', 'Empowering', 'Euphoric', 'Anthemic'],
     ARRAY['Dua Lipa', 'Lady Gaga', 'Beyoncé', 'Rihanna', 'Kylie Minogue'],
     'Turn up the volume. VEGA is the party you never want to end.',
-    '{"age": "18-35", "gender": ["Female", "Male", "Non-binary"], "location": ["USA", "UK", "Germany", "Netherlands", "Spain", "Brazil"], "platforms": ["Spotify", "TikTok", "Instagram", "YouTube"], "interests": ["Festivals", "Fashion", '|| 'Dancing', "Travel", "Nightlife"]}',
+    '{"age": "18-35", "gender": ["Female", "Male", "Non-binary"], "location": ["USA", "UK", "Germany", "Netherlands", "Spain", "Brazil"], "platforms": ["Spotify", "TikTok", "Instagram", "YouTube"], "interests": ["Festivals", "Fashion", "Dancing", "Travel", "Nightlife"]}',
     'VEGA was born for the spotlight. From her first dance recital at age 4 to selling out clubs by 19, she lives for the moment the beat drops. Her music is pure energy—designed to make you move, scream the lyrics, and lose yourself.',
     true, NOW(), NOW()
 ),
@@ -74,7 +74,7 @@ VALUES
     ARRAY['Haunting', 'Atmospheric', 'Abstract', 'Dreamy'],
     ARRAY['Billie Eilish', 'Lana Del Rey', 'Mitski', 'Florence Welch', 'FKA twigs'],
     'Whispers in the dark. LUNA makes music for the hours between midnight and dawn.',
-    '{"age": "16-34", "gender": ["Female", "Non-binary"], "location": ["USA", "UK", "France", "Japan", "South Korea"], "platforms": ["Spotify", "YouTube", '|| 'Instagram", "TikTok"], "interests": ["Art", '|| 'Photography", "Horror movies", '|| 'Dream interpretation", '|| 'Philosophy"]}',
+    '{"age": "16-34", "gender": ["Female", "Non-binary"], "location": ["USA", "UK", "France", "Japan", "South Korea"], "platforms": ["Spotify", "YouTube", "Instagram", "TikTok"], "interests": ["Art", "Photography", "Horror movies", "Dream interpretation", "Philosophy"]}',
     'LUNA exists in the space between dreams and reality. She creates music for the people who lie awake at night, staring at the ceiling, thinking about existence. Her songs are lullabies for the restless mind.',
     true, NOW(), NOW()
 )

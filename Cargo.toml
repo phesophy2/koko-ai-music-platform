@@ -15,7 +15,6 @@ log = "0.4"
 uuid = { version = "1.6", features = ["v4", "serde"] }
 chrono = { version = "0.4", features = ["serde"] }
 sqlx = { version = "0.7", features = ["runtime-tokio-native-tls", "postgres", "uuid", "chrono", "json"] }
-redis = { version = "0.24", features = ["tokio-comp"] }
 async-nats = "0.34"
 aws-sdk-s3 = "1.0"
 aws-config = "1.0"

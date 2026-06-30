@@ -9,7 +9,7 @@ mod queue;
 mod storage;
 mod utils;
 
-use actix_web::{web, App, HttpServer, middleware};
+use actix_web::{web, App, HttpServer};
 use actix_cors::Cors;
 use tracing_subscriber::EnvFilter;
 
