@@ -1,0 +1,30 @@
+env: production
+debug: false
+
+server:
+  host: "0.0.0.0"
+  port: 8080
+
+database:
+  url: "${DATABASE_URL}"
+  pool_size: 50
+
+redis:
+  url: "${REDIS_URL}"
+  cluster_mode: true
+
+rabbitmq:
+  url: "${RABBITMQ_URL}"
+
+s3:
+  endpoint: ""
+  bucket: "koko-audio-prod"
+  region: "us-east-1"
+
+generation:
+  model_path: "/models/production"
+  device: "cuda"
+
+logging:
+  level: "info"
+  format: "json"

@@ -1,0 +1,25 @@
+env: development
+debug: true
+
+server:
+  host: "0.0.0.0"
+  port: 8080
+
+database:
+  url: "postgres://koko:koko_dev@localhost:5432/koko"
+  pool_size: 10
+
+redis:
+  url: "redis://localhost:6379"
+
+rabbitmq:
+  url: "amqp://guest:guest@localhost:5672"
+
+s3:
+  endpoint: "http://localhost:9000"
+  bucket: "koko-audio-dev"
+  region: "us-east-1"
+
+generation:
+  model_path: "./models/default"
+  device: "cpu"

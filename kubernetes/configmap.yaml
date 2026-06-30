@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: koko-config
+  namespace: koko
+data:
+  DATABASE_URL: "postgres://koko:koko_dev@koko-postgres:5432/koko"
+  REDIS_URL: "redis://koko-redis:6379"
+  RABBITMQ_URL: "amqp://koko-rabbitmq:5672"
+  S3_BUCKET: "koko-audio-prod"
+  RUST_LOG: "info"

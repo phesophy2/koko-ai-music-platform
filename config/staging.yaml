@@ -1,0 +1,25 @@
+env: staging
+debug: false
+
+server:
+  host: "0.0.0.0"
+  port: 8080
+
+database:
+  url: "${DATABASE_URL}"
+  pool_size: 20
+
+redis:
+  url: "${REDIS_URL}"
+
+rabbitmq:
+  url: "${RABBITMQ_URL}"
+
+s3:
+  endpoint: ""
+  bucket: "koko-audio-staging"
+  region: "us-east-1"
+
+generation:
+  model_path: "./models/prod"
+  device: "cuda"

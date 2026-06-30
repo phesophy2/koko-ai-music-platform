@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: koko-api
+  namespace: koko
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: koko-api
+  template:
+    metadata:
+      labels:
+        app: koko-api
+    spec:
+      containers:
+        - name: koko-api
+          image: ecr/repo:latest
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: koko-config
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "512Mi"
+            limits:
+              cpu: "2"
+              memory: "2Gi"

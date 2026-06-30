@@ -1,0 +1,12 @@
+{
+  "name": "koko-ai-music-platform",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI-powered music generation platform",
+  "scripts": {
+    "dev": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "test": "cd frontend && npm test",
+    "lint": "cd frontend && npm run lint"
+  }
+}
