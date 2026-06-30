@@ -1,9 +1,13 @@
 import { defineConfig } from 'vite';
 import { qwikCity } from '@builder.io/qwik-city/vite';
+import { qwikVite } from '@builder.io/qwik/optimizer';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
-export default defineConfig({
-  plugins: [qwikCity()],
-  server: {
-    port: 3000,
-  },
+export default defineConfig(() => {
+  return {
+    plugins: [qwikCity(), qwikVite(), tsconfigPaths({ root: '.' })],
+    server: {
+      port: 3000,
+    },
+  };
 });

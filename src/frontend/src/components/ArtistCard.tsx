@@ -13,7 +13,7 @@ const genreColors: Record<string, string> = {
   Pop: 'bg-pink-500/20 text-pink-300',
   Rock: 'bg-red-500/20 text-red-300',
   HipHop: 'bg-orange-500/20 text-orange-300',
-  R&B: 'bg-purple-500/20 text-purple-300',
+  'R&B': 'bg-purple-500/20 text-purple-300',
   Electronic: 'bg-blue-500/20 text-blue-300',
   Jazz: 'bg-yellow-500/20 text-yellow-300',
   Classical: 'bg-green-500/20 text-green-300',
